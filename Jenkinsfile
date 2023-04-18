@@ -22,7 +22,7 @@ pipeline {
         
         stage('Publish HTML') {
               steps {
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/project-02-banking/target/surefire-reports', reportFiles: 'index.html', reportName: 'project-02-HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/banking/target/surefire-reports', reportFiles: 'index.html', reportName: 'project-02-HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
         }
         
@@ -30,7 +30,7 @@ pipeline {
               steps {
                   
                   sh'sudo docker system prune -af '
-                  sh 'sudo docker build -t anilprabhu/bank-finance:${BUILD_NUMBER}.0 .'
+                  sh 'sudo docker build -t anilprabhu/banking:${BUILD_NUMBER}.0 .'
               
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
               steps {
                    withCredentials([string(credentialsId: 'docpass', variable: 'docpasswd')]) {
                   sh 'sudo docker login -u anilprabhu -p ${docpasswd} '
-                  sh 'sudo docker push anilprabhu/bank-finance:${BUILD_NUMBER}.0 '
+                  sh 'sudo docker push anilprabhu/banking:${BUILD_NUMBER}.0 '
                   }
                 }
         }    

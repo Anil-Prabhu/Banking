@@ -9,7 +9,7 @@ pipeline {
         stage('Git checkout') {
             steps {
               
-                   git 'https://github.com/SaiRevanth-J/project-02-bank-finacial.git'
+                   git 'https://github.com/Anil-Prabhu/banking.git'
             
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
               steps {
                   
                   sh'sudo docker system prune -af '
-                  sh 'sudo docker build -t revanthkumar9/bank-finance:${BUILD_NUMBER}.0 .'
+                  sh 'sudo docker build -t anilprabhu/bank-finance:${BUILD_NUMBER}.0 .'
               
                 }
             }
@@ -38,8 +38,8 @@ pipeline {
         stage('Docker login and push') {
               steps {
                    withCredentials([string(credentialsId: 'docpass', variable: 'docpasswd')]) {
-                  sh 'sudo docker login -u revanthkumar9 -p ${docpasswd} '
-                  sh 'sudo docker push revanthkumar9/bank-finance:${BUILD_NUMBER}.0 '
+                  sh 'sudo docker login -u anilprabhu -p ${docpasswd} '
+                  sh 'sudo docker push anilprabhu/bank-finance:${BUILD_NUMBER}.0 '
                   }
                 }
         }    
